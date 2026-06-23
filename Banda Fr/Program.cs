@@ -68,7 +68,7 @@ void VerBandasRegistradas()
 
     if (bandasRegistradas.Count == 0)
     {
-        Console.WriteLine("Nenhuma banda registrada");
+        Console.WriteLine("\nNenhuma banda registrada");
     }
     else
     {
@@ -92,7 +92,7 @@ void RemoverBanda()
     Console.WriteLine("Remover uma banda");
     Console.WriteLine("*****************");
 
-    Console.Write("Digite o nome da banda que deseja remover: ");
+    Console.Write("\nDigite o nome da banda que deseja remover: ");
     string nomeDaBandaParaRemover = Console.ReadLine()!;
 
     if (bandasRegistradas.Contains(nomeDaBandaParaRemover))
@@ -111,10 +111,6 @@ void RemoverBanda()
     ExibirMensagemDeBoasVindas();
     ExibirOpcoesMenu();
 }
-
-
-
-
 
 ExibirMensagemDeBoasVindas();
 ExibirOpcoesMenu();

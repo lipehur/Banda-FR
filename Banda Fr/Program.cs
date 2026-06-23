@@ -62,7 +62,10 @@ void RegistroDaBanda()
 void VerBandasRegistradas()
 {
     Console.Clear();
-
+    foreach (var band in bandasRegistradas)
+    {
+        Console.Write(band);
+    }
     
 }
 

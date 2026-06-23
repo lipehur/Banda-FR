@@ -33,7 +33,7 @@ void ExibirOpcoesMenu()
             break;
         case 2: VerBandasRegistradas();
             break;
-        case 3: Console.WriteLine($"Você digitou {opcaoNumericaEscolhida}");
+        case 3: RemoverBanda();
             break;
         case 4: Console.WriteLine($"Você digitou {opcaoNumericaEscolhida}");
             break;
@@ -83,6 +83,33 @@ void VerBandasRegistradas()
     ExibirMensagemDeBoasVindas();
     ExibirOpcoesMenu();
 
+}
+
+void RemoverBanda()
+{
+    Console.Clear();
+    Console.WriteLine("*****************");
+    Console.WriteLine("Remover uma banda");
+    Console.WriteLine("*****************");
+
+    Console.Write("Digite o nome da banda que deseja remover: ");
+    string nomeDaBandaParaRemover = Console.ReadLine()!;
+
+    if (bandasRegistradas.Contains(nomeDaBandaParaRemover))
+    {
+        bandasRegistradas.Remove(nomeDaBandaParaRemover);
+        Console.WriteLine($"\nA banda {nomeDaBandaParaRemover} foi removida com sucesso!");
+    } 
+    else
+    {
+        Console.WriteLine($"\nA banda {nomeDaBandaParaRemover} não foi no encontrada no sistema");
+    }
+
+    Console.WriteLine("\nAperte qualquer tecla para voltar ao menu de opções");
+    Console.ReadKey();
+    Console.Clear();
+    ExibirMensagemDeBoasVindas();
+    ExibirOpcoesMenu();
 }
 
 

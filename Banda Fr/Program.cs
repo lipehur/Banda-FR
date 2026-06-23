@@ -90,30 +90,68 @@ void VerBandasRegistradas()
 
 void RemoverBanda()
 {
-    Console.Clear();
-    Console.WriteLine("*****************");
-    Console.WriteLine("Remover uma banda");
-    Console.WriteLine("*****************");
+    bool continuarRemovendo = true;
 
-    foreach (var band in bandasRegistradas.Keys)
+    while (continuarRemovendo)
     {
-        Console.WriteLine($"Banda: {band}");
-    }
-    Console.Write("\nDigite o nome da banda que deseja remover: ");
-    string nomeDaBandaParaRemover = Console.ReadLine()!;
+        Console.Clear();
+        Console.WriteLine("*****************");
+        Console.WriteLine("Remover uma banda");
+        Console.WriteLine("*****************");
 
-    if (bandasRegistradas.ContainsKey(nomeDaBandaParaRemover))
-    {
-        bandasRegistradas.Remove(nomeDaBandaParaRemover);
-        Console.WriteLine($"\nA banda {nomeDaBandaParaRemover} foi removida com sucesso!");
-    } 
-    else
-    {
-        Console.WriteLine($"\nA banda {nomeDaBandaParaRemover} não foi no encontrada no sistema");
-    }
+        if (bandasRegistradas.Count == 0)
+        {
+            Console.WriteLine("Nenhuma banda registrada no sitema");
+            break;
+        }
+        else
+        {
+            Console.WriteLine("\nBandas disponíveis:");
 
-    Console.WriteLine("\nAperte qualquer tecla para voltar ao menu de opções");
-    Console.ReadKey();
+            foreach (var band in bandasRegistradas.Keys)
+            {
+                Console.WriteLine($"- {band}");
+            }
+            Console.Write("Digite o nome da banda que deseja remover (ou digite 'sair' para voltar): ");
+            string nomeDaBandaParaRemvoer = Console.ReadLine()!;
+
+            if (nomeDaBandaParaRemvoer.ToLower() == "sair")
+            {
+                continuarRemovendo = false;
+            }
+            else if (bandasRegistradas.ContainsKey(nomeDaBandaParaRemvoer))
+            {
+                bandasRegistradas.Remove(nomeDaBandaParaRemvoer);
+                Console.WriteLine($"\nA banda {nomeDaBandaParaRemvoer} foi removida com sucesso");
+
+                if (bandasRegistradas.Count > 0)
+                {
+                    Console.WriteLine("\nDeseja remover outra banda? (s/n): ");
+                    string resposta = Console.ReadLine();
+                    if (resposta != "s")
+                    {
+                        continuarRemovendo = false;
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("\nTodas as bandas foram removidas");
+                    Thread.Sleep(800);
+                    continuarRemovendo = false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nTodas as bandas foram removidas");
+                Thread.Sleep(500);
+
+            }
+            
+        }
+
+        }
+
     Console.Clear();
     ExibirMensagemDeBoasVindas();
     ExibirOpcoesMenu();

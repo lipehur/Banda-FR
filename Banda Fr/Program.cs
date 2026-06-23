@@ -1,5 +1,5 @@
 ﻿string mensagemDeBoasVindas = "Bem vindo ao FR Music";
-List<string> bandasRegistradas = new List<string>();
+Dictionary<string, List<int>> bandasRegistradas = new Dictionary<string, List<int>>();
 
 
 void ExibirMensagemDeBoasVindas()
@@ -35,9 +35,11 @@ void ExibirOpcoesMenu()
             break;
         case 3: RemoverBanda();
             break;
-        case 4: Console.WriteLine($"Você digitou {opcaoNumericaEscolhida}");
+        case 4: DarNotaParaBanda();
             break;
-        case -1: Console.WriteLine($"Você digitou {opcaoNumericaEscolhida}");
+        case 5: ExibirAsBandasESuasNotas();
+            break;
+        case -1: Console.WriteLine($"Até mais tchau tchau :)");
             break;
         default: Console.WriteLine("Você digitou uma opção invalida");
             break;
@@ -51,9 +53,9 @@ void RegistroDaBanda()
     Console.Clear();
     Console.Write("Digite a banda que deseja registrar: ");
     string nomeDaBanda = Console.ReadLine()!;
-    bandasRegistradas.Add(nomeDaBanda);
+    bandasRegistradas.Add(nomeDaBanda, new List<int>());
     Console.WriteLine($"Banda {nomeDaBanda} registrada com sucesso!");
-    Thread.Sleep(2000);
+    Thread.Sleep(200);
     Console.Clear();
     ExibirMensagemDeBoasVindas();
     ExibirOpcoesMenu();
@@ -72,7 +74,7 @@ void VerBandasRegistradas()
     }
     else
     {
-        foreach (var band in bandasRegistradas)
+        foreach (var band in bandasRegistradas.Keys)
         {
             Console.WriteLine($"Banda: {band}");
         }
@@ -92,10 +94,14 @@ void RemoverBanda()
     Console.WriteLine("Remover uma banda");
     Console.WriteLine("*****************");
 
+    foreach (var band in bandasRegistradas.Keys)
+    {
+        Console.WriteLine($"\nBanda: {band}");
+    }
     Console.Write("\nDigite o nome da banda que deseja remover: ");
     string nomeDaBandaParaRemover = Console.ReadLine()!;
 
-    if (bandasRegistradas.Contains(nomeDaBandaParaRemover))
+    if (bandasRegistradas.ContainsKey(nomeDaBandaParaRemover))
     {
         bandasRegistradas.Remove(nomeDaBandaParaRemover);
         Console.WriteLine($"\nA banda {nomeDaBandaParaRemover} foi removida com sucesso!");
@@ -110,6 +116,49 @@ void RemoverBanda()
     Console.Clear();
     ExibirMensagemDeBoasVindas();
     ExibirOpcoesMenu();
+}
+
+void DarNotaParaBanda()
+{
+    Console.Clear();
+    Console.WriteLine("*******************");
+    Console.WriteLine("Dar nota para banda");
+    Console.WriteLine("*******************");
+
+    foreach (var band in bandasRegistradas.Keys)
+    {
+        Console.WriteLine($"\nBanda: {band}");
+    }
+
+    Console.Write("\nDigite o nome da banda que deseja dar uma nota: ");
+    string nomeDaBandaParaDarNota = Console.ReadLine()!;
+
+    
+    if (bandasRegistradas.ContainsKey(nomeDaBandaParaDarNota))
+    {
+        
+        Console.Write($"Digite a nota para dar a banda {nomeDaBandaParaDarNota}: ");
+        string notaDaBanda = Console.ReadLine()!;
+        int notaNumerica = int.Parse(notaDaBanda);
+
+        bandasRegistradas[nomeDaBandaParaDarNota].Add(notaNumerica);
+        Console.WriteLine($"A nota {notaNumerica} foi adicinada a banda {nomeDaBandaParaDarNota}");
+    }
+    else
+    {
+        Console.WriteLine($"A banda {nomeDaBandaParaDarNota} não foi encontrada no sistema");
+    }
+
+    Console.WriteLine("\nAperte qualquer tecla para voltar ao menu de opções");
+    Console.ReadKey();
+    Console.Clear();
+    ExibirMensagemDeBoasVindas();
+    ExibirOpcoesMenu();
+}
+
+void ExibirAsBandasESuasNotas();
+{
+
 }
 
 ExibirMensagemDeBoasVindas();

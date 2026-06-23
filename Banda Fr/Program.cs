@@ -68,9 +68,6 @@ void VerBandasRegistradas()
 
     if (bandasRegistradas.Count == 0)
     {
-
-        Console.WriteLine(band);
-
         Console.WriteLine("Nenhuma banda registrada");
     }
     else
@@ -80,7 +77,6 @@ void VerBandasRegistradas()
         {
             Console.Write($"Banda: {band}");
         }
-
     }
 }
 

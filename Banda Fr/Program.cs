@@ -21,6 +21,7 @@ void ExibirOpcoesMenu()
     Console.WriteLine("Digite 2 para ver as bandas registradas");
     Console.WriteLine("Digite 3 para remover uma banda");
     Console.WriteLine("Digite 4 dar uma nota para uma banda");
+    Console.WriteLine("Digite 5 para mostrar a nota das bandas");
     Console.WriteLine("Digite -1 para sair");
 
     Console.Write("Digite sua opção: ");
@@ -96,7 +97,7 @@ void RemoverBanda()
 
     foreach (var band in bandasRegistradas.Keys)
     {
-        Console.WriteLine($"\nBanda: {band}");
+        Console.WriteLine($"Banda: {band}");
     }
     Console.Write("\nDigite o nome da banda que deseja remover: ");
     string nomeDaBandaParaRemover = Console.ReadLine()!;
@@ -127,7 +128,7 @@ void DarNotaParaBanda()
 
     foreach (var band in bandasRegistradas.Keys)
     {
-        Console.WriteLine($"\nBanda: {band}");
+        Console.WriteLine($"Banda: {band}");
     }
 
     Console.Write("\nDigite o nome da banda que deseja dar uma nota: ");
@@ -156,9 +157,35 @@ void DarNotaParaBanda()
     ExibirOpcoesMenu();
 }
 
-void ExibirAsBandasESuasNotas();
+void ExibirAsBandasESuasNotas()
 {
+    Console.Clear();
+    Console.WriteLine("*************************");
+    Console.WriteLine("Notas e médias das bandas");
+    Console.WriteLine("*************************");
+    
+    if (bandasRegistradas.Count == 0)
+    {
+        Console.WriteLine("Nenhuma banda registrada no sistema");
+    } else
+    {
+        foreach (var banda_e_Notas in bandasRegistradas)
+        {
+            string nomeDaBanda = banda_e_Notas.Key;
+            List<int> notas = banda_e_Notas.Value;
 
+            string notasTexto = notas.Count > 0 ? string.Join(' ', notas) : "Sem notas";
+
+            Console.WriteLine($"Bandas: {nomeDaBanda} - Nota: {notasTexto}");
+
+        }
+    }
+
+    Console.WriteLine("\nAperte qualquer tecla para voltar ao menu de opções");
+    Console.ReadKey();
+    Console.Clear();
+    ExibirMensagemDeBoasVindas();
+    ExibirOpcoesMenu();
 }
 
 ExibirMensagemDeBoasVindas();

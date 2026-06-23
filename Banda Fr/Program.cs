@@ -23,7 +23,7 @@ void ExibirOpcoesMenu()
     Console.WriteLine("Digite 4 dar uma nota para uma banda");
     Console.WriteLine("Digite -1 para sair");
 
-    Console.WriteLine("Digite sua opção: ");
+    Console.Write("Digite sua opção: ");
     string opcaoEscolhida = Console.ReadLine()!;
     int opcaoNumericaEscolhida = int.Parse(opcaoEscolhida);
 
@@ -72,10 +72,9 @@ void VerBandasRegistradas()
     }
     else
     {
-
         foreach (var band in bandasRegistradas)
         {
-            Console.Write($"Banda: {band}");
+            Console.WriteLine($"Banda: {band}");
         }
     }
 }

@@ -62,11 +62,22 @@ void RegistroDaBanda()
 void VerBandasRegistradas()
 {
     Console.Clear();
-    foreach (var band in bandasRegistradas)
+    Console.WriteLine("******************");
+    Console.WriteLine("Bandas Registradas");
+    Console.WriteLine("******************");
+
+    if (bandasRegistradas.Count == 0)
     {
-        Console.Write(band);
+        Console.WriteLine("Nenhuma banda registrada");
     }
-    
+    else
+    {
+
+        foreach (var band in bandasRegistradas)
+        {
+            Console.Write($"Banda: {band}");
+        }
+    }
 }
 
 

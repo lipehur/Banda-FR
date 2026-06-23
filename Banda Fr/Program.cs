@@ -77,7 +77,15 @@ void VerBandasRegistradas()
             Console.WriteLine($"Banda: {band}");
         }
     }
+    Console.WriteLine("\nAperte qualquer tecla para voltar ao menu de opções");
+    Console.ReadKey();
+    Console.Clear();
+    ExibirMensagemDeBoasVindas();
+    ExibirOpcoesMenu();
+
 }
+
+
 
 
 

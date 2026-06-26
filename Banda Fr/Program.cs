@@ -1,5 +1,5 @@
 ﻿string mensagemDeBoasVindas = "Bem vindo ao FR Music";
-List<string> bandasRegistradas = new List<string>();
+Dictionary<string, List<int>> bandasRegistradas = new Dictionary<string, List<int>>();
 
 
 void ExibirMensagemDeBoasVindas()
@@ -21,6 +21,7 @@ void ExibirOpcoesMenu()
     Console.WriteLine("Digite 2 para ver as bandas registradas");
     Console.WriteLine("Digite 3 para remover uma banda");
     Console.WriteLine("Digite 4 dar uma nota para uma banda");
+    Console.WriteLine("Digite 5 para mostrar a nota das bandas");
     Console.WriteLine("Digite -1 para sair");
 
     Console.Write("Digite sua opção: ");
@@ -33,11 +34,13 @@ void ExibirOpcoesMenu()
             break;
         case 2: VerBandasRegistradas();
             break;
-        case 3: Console.WriteLine($"Você digitou {opcaoNumericaEscolhida}");
+        case 3: RemoverBanda();
             break;
-        case 4: Console.WriteLine($"Você digitou {opcaoNumericaEscolhida}");
+        case 4: DarNotaParaBanda();
             break;
-        case -1: Console.WriteLine($"Você digitou {opcaoNumericaEscolhida}");
+        case 5: ExibirAsBandasESuasNotas();
+            break;
+        case -1: Console.WriteLine($"Até mais tchau tchau :)");
             break;
         default: Console.WriteLine("Você digitou uma opção invalida");
             break;
@@ -51,9 +54,9 @@ void RegistroDaBanda()
     Console.Clear();
     Console.Write("Digite a banda que deseja registrar: ");
     string nomeDaBanda = Console.ReadLine()!;
-    bandasRegistradas.Add(nomeDaBanda);
+    bandasRegistradas.Add(nomeDaBanda, new List<int>());
     Console.WriteLine($"Banda {nomeDaBanda} registrada com sucesso!");
-    Thread.Sleep(2000);
+    Thread.Sleep(200);
     Console.Clear();
     ExibirMensagemDeBoasVindas();
     ExibirOpcoesMenu();
@@ -68,18 +71,160 @@ void VerBandasRegistradas()
 
     if (bandasRegistradas.Count == 0)
     {
-        Console.WriteLine("Nenhuma banda registrada");
+        Console.WriteLine("\nNenhuma banda registrada");
     }
     else
     {
-        foreach (var band in bandasRegistradas)
+        foreach (var band in bandasRegistradas.Keys)
         {
             Console.WriteLine($"Banda: {band}");
         }
     }
+    Console.WriteLine("\nAperte qualquer tecla para voltar ao menu de opções");
+    Console.ReadKey();
+    Console.Clear();
+    ExibirMensagemDeBoasVindas();
+    ExibirOpcoesMenu();
+
 }
 
+void RemoverBanda()
+{
+    bool continuarRemovendo = true;
 
+    while (continuarRemovendo)
+    {
+        Console.Clear();
+        Console.WriteLine("*****************");
+        Console.WriteLine("Remover uma banda");
+        Console.WriteLine("*****************");
+
+        if (bandasRegistradas.Count == 0)
+        {
+            Console.WriteLine("Nenhuma banda registrada no sitema");
+            break;
+        }
+        else
+        {
+            Console.WriteLine("\nBandas disponíveis:");
+
+            foreach (var band in bandasRegistradas.Keys)
+            {
+                Console.WriteLine($"- {band}");
+            }
+            Console.Write("Digite o nome da banda que deseja remover (ou digite 'sair' para voltar): ");
+            string nomeDaBandaParaRemvoer = Console.ReadLine()!;
+
+            if (nomeDaBandaParaRemvoer.ToLower() == "sair")
+            {
+                continuarRemovendo = false;
+            }
+            else if (bandasRegistradas.ContainsKey(nomeDaBandaParaRemvoer))
+            {
+                bandasRegistradas.Remove(nomeDaBandaParaRemvoer);
+                Console.WriteLine($"\nA banda {nomeDaBandaParaRemvoer} foi removida com sucesso");
+
+                if (bandasRegistradas.Count > 0)
+                {
+                    Console.WriteLine("\nDeseja remover outra banda? (s/n): ");
+                    string resposta = Console.ReadLine();
+                    if (resposta != "s")
+                    {
+                        continuarRemovendo = false;
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("\nTodas as bandas foram removidas");
+                    Thread.Sleep(800);
+                    continuarRemovendo = false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nTodas as bandas foram removidas");
+                Thread.Sleep(500);
+
+            }
+            
+        }
+
+        }
+
+    Console.Clear();
+    ExibirMensagemDeBoasVindas();
+    ExibirOpcoesMenu();
+}
+
+void DarNotaParaBanda()
+{
+    Console.Clear();
+    Console.WriteLine("*******************");
+    Console.WriteLine("Dar nota para banda");
+    Console.WriteLine("*******************");
+
+    foreach (var band in bandasRegistradas.Keys)
+    {
+        Console.WriteLine($"Banda: {band}");
+    }
+
+    Console.Write("\nDigite o nome da banda que deseja dar uma nota: ");
+    string nomeDaBandaParaDarNota = Console.ReadLine()!;
+
+    
+    if (bandasRegistradas.ContainsKey(nomeDaBandaParaDarNota))
+    {
+        
+        Console.Write($"Digite a nota para dar a banda {nomeDaBandaParaDarNota}: ");
+        string notaDaBanda = Console.ReadLine()!;
+        int notaNumerica = int.Parse(notaDaBanda);
+
+        bandasRegistradas[nomeDaBandaParaDarNota].Add(notaNumerica);
+        Console.WriteLine($"A nota {notaNumerica} foi adicinada a banda {nomeDaBandaParaDarNota}");
+    }
+    else
+    {
+        Console.WriteLine($"A banda {nomeDaBandaParaDarNota} não foi encontrada no sistema");
+    }
+
+    Console.WriteLine("\nAperte qualquer tecla para voltar ao menu de opções");
+    Console.ReadKey();
+    Console.Clear();
+    ExibirMensagemDeBoasVindas();
+    ExibirOpcoesMenu();
+}
+
+void ExibirAsBandasESuasNotas()
+{
+    Console.Clear();
+    Console.WriteLine("*************************");
+    Console.WriteLine("Notas e médias das bandas");
+    Console.WriteLine("*************************");
+    
+    if (bandasRegistradas.Count == 0)
+    {
+        Console.WriteLine("Nenhuma banda registrada no sistema");
+    } else
+    {
+        foreach (var banda_e_Notas in bandasRegistradas)
+        {
+            string nomeDaBanda = banda_e_Notas.Key;
+            List<int> notas = banda_e_Notas.Value;
+
+            string notasTexto = notas.Count > 0 ? string.Join(' ', notas) : "Sem notas";
+
+            Console.WriteLine($"Bandas: {nomeDaBanda} - Nota: {notasTexto}");
+
+        }
+    }
+
+    Console.WriteLine("\nAperte qualquer tecla para voltar ao menu de opções");
+    Console.ReadKey();
+    Console.Clear();
+    ExibirMensagemDeBoasVindas();
+    ExibirOpcoesMenu();
+}
 
 ExibirMensagemDeBoasVindas();
 ExibirOpcoesMenu();
